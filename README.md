@@ -43,12 +43,12 @@ Code repo contains the following DB setup
   ● Return results ranked by engagement frequency (from analytics DB).
 
 ## 📦 Deployment Guide
-### Prerequisites before execution on the cloud
-#### ● Make sure you have Docker Desktop installed.
-#### ● Fill the config as per your GCP project details
-#### ● Upload your SA JSON in secrets/ dir
-#### ● Make sure the service account you are using has the following permissions: 1. roles/bigquery.jobUser 2. roles/storage.objectUser
-#### ● Run "docker compose up" at the root directory.
+### Prerequisites before execution on the cloud  
+#### ● Make sure you have Docker Desktop installed.  
+#### ● Fill the config as per your GCP project details  
+#### ● Upload your SA JSON in secrets/ dir  
+#### ● Make sure the service account you are using has the following permissions: 1. roles/bigquery.jobUser 2. roles/storage.objectUser  
+#### ● Run "docker compose up" at the root directory.  
 Notes: 
 1. Once Docker Compose has run successfully, you will see the containers in Docker Desktop.
 2. No need to run docker compose up every time you make changes to the code. Just restart the relevant service container.
