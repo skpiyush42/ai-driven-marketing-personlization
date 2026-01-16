@@ -13,6 +13,7 @@ import os
 import time
 from pymilvus.exceptions import MilvusException
 import numpy as np
+import math
 
 # User defined class imports
 from config.config_api import Confing
@@ -131,6 +132,21 @@ def milvus_db_ops():
 
 def get_most_similar_users(client, COLLECTION, TARGET_USER_ID):
 
+    # Creating index for faster retrieval
+    # Prepare the index parameters
+    index_params = client.prepare_index_params()
+    index_params.add_index(
+        field_name="text_embedding",
+        index_type="FLAT",
+        metric_type="COSINE",
+        params={
+        }
+    )
+    client.create_index(
+        collection_name=COLLECTION,
+        index_params=index_params
+    )
+
     # Load collection for querying
     client.load_collection(COLLECTION)
 
@@ -228,6 +244,13 @@ def create_node():
         except Exception as e:
             logger.exception(f"An error occurred: {e}")
 
+def normalize_campaign(value):
+    if value is None:
+        return None
+    if isinstance(value, float) and math.isnan(value):
+        return None
+    return value
+
 def create_basic_relationships(df):
     """Connects to Neo4j and creates a new relationship."""
 
@@ -236,17 +259,23 @@ def create_basic_relationships(df):
         create_relationship_query = """
                 MERGE (u:User {user_id: $user_id})
 
-                MERGE (c:Campaign {campaign: $campaign})
-
                 MERGE (e:Event {record_id: $record_id})
                 SET
                 e.message = $message,
                 e.timestamp = datetime($timestamp)
 
-                MERGE (u)-[:PERFORMED]->(e)
+                WITH u, e, $campaign AS campaign
+                WHERE campaign IS NOT NULL
+
+                MERGE (c:Campaign {campaign: campaign})
+
                 MERGE (e)-[:PART_OF]->(c)
+                MERGE (u)-[:PERFORMED]->(e)
+
                 MERGE (u)-[:PARTICIPATED_IN]->(c)
+        
             """
+        logger.info(create_relationship_query)
         def insert_batch(tx, rows):
 
             summary_counters = {
@@ -288,7 +317,7 @@ def create_basic_relationships(df):
                         batch.append({
                             "record_id": r["record_id"],
                             "user_id": r["user_id"],
-                            "campaign": r["campaign"],
+                            "campaign": normalize_campaign(r["campaign"]),
                             "message": r["message"],
                             "timestamp": datetime.strptime(r["timestamp"], "%Y-%m-%d %H:%M:%S.%f").isoformat()
                         })
@@ -429,22 +458,7 @@ def main():
                         stats = client_instance_milvus.get_collection_stats(collection_name=collection_milvus)
                         print("Total entities:", stats["row_count"])
 
-                        # Creating index for faster retrieval
-                        # Prepare the index parameters
-                        index_params = client_instance_milvus.prepare_index_params()
-                        index_params.add_index(
-                            field_name="text_embedding",
-                            index_type="HNSW",
-                            metric_type="COSINE",
-                            params={
-                                "M": 16,
-                                "efConstruction": 200
-                            }
-                        )
-                        client_instance_milvus.create_index(
-                            collection_name=collection_milvus,
-                            index_params=index_params
-                        )
+                        
                 
 
 
@@ -522,7 +536,7 @@ def run_query_for_user_id(user_id):
     # Get aggregation query results:
 
 
-    logger.info(f"{user_id} participated in following campaigns: {[r.data() for r in records]}")
+    logger.info(f"{user_id} participated in following campaigns: {records}")
 
     logger.info(f"user is similar to following user : {unique_similar_users}")
 
