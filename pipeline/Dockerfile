@@ -5,8 +5,8 @@ FROM python:3.12-slim
 WORKDIR /pipeline
 
 # Copy requirements and install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements-pipeline.txt .
+RUN pip install --no-cache-dir -r requirements-pipeline.txt
 
 # Set enviroment variable
 ENV GOOGLE_CLOUD_PROJECT=dataservices-dev-stage
