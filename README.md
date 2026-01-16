@@ -1,8 +1,8 @@
 # owow-talents-ai-mp
 This repo has code for the take-home assignment as part of the interview process for the GCP data engineer role at OWOW talents
 
-├── src/ 
-│  ├── pipeline/&ensp;&ensp;# ETL / orchestration scripts            
+├── src/   
+│  ├── pipeline/&ensp;&ensp;# ETL / orchestration scripts              
 │  ├── api/&ensp;&ensp;&ensp;# FastAPI app   
 │  ├── utils/                  
 │  ├── data/  
