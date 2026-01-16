@@ -38,9 +38,9 @@ Code repo contains the following DB setup
 1. Runs the queries against the data in db's created by the ETL pipeline
 2. Has a Fast API service that implements the GET HTTP method to retrieve the query results 
 3. The following are the queries 
-  ● Retrieve top 5 most similar users (via Milvus vector search).
-  ● Fetch campaigns connected to those users (via Neo4j).
-  ● Return results ranked by engagement frequency (from analytics DB).
+  ● Retrieve top 5 most similar users (via Milvus vector search).  
+  ● Fetch campaigns connected to those users (via Neo4j).  
+  ● Return results ranked by engagement frequency (from analytics DB).  
 
 ## 📦 Deployment Guide
 ### Prerequisites before execution on the cloud  
