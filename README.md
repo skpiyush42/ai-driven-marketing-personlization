@@ -11,7 +11,7 @@ This repo contains code for the take-home assignment for the role of GCP data en
 │  ├── pipeline/&ensp;&ensp;# ETL / orchestration scripts              
 │  ├── api/&ensp;&ensp;&ensp;# FastAPI app   
 │  ├── utils/                  
-│  ├── data/  
+│  ├── data/  # contains the milvus lite db and sample file used in pipeline  
 │  ├── secrets/&ensp;&ensp;&ensp;# store your SA key json for GCP project  
 │  ├── docker-compose.yml&ensp;&ensp;&ensp; Docker compose file             
 │  ├── README.md   
@@ -35,20 +35,20 @@ Code repo contains the following DB setup
 5. Uploads CSV data into BigQuery table for analytics
 
 ## ℹ️ Fast API service
-1. Runs the queries against the data in db's created by the ETL pipeline
-2. Has a Fast API service that implements the GET HTTP method to retrieve the query results 
-3. The following are the queries 
-  ● Retrieve top 5 most similar users (via Milvus vector search).
-  ● Fetch campaigns connected to those users (via Neo4j).
-  ● Return results ranked by engagement frequency (from analytics DB).
+1. Runs the queries against the data in db's created by the ETL pipeline  
+2. Has a Fast API service that implements the GET HTTP method to retrieve the query results   
+3. The following are the queries  
+  ● Retrieve top 5 most similar users (via Milvus vector search).    
+  ● Fetch campaigns connected to those users (via Neo4j).  
+  ● Return results ranked by engagement frequency (from analytics DB).  
 
 ## 📦 Deployment Guide
-### Prerequisites before execution on the cloud
-#### ● Make sure you have Docker Desktop installed.
-#### ● Fill the config as per your GCP project details
-#### ● Upload your SA JSON in secrets/ dir
-#### ● Make sure the service account you are using has the following permissions: 1. roles/bigquery.jobUser 2. roles/storage.objectUser
-#### ● Run "docker compose up" at the root directory.
+### Prerequisites before execution on the cloud  
+#### ● Make sure you have Docker Desktop installed.  
+#### ● Fill the config as per your GCP project details  
+#### ● Upload your SA JSON in secrets/ dir  
+#### ● Make sure the service account you are using has the following permissions: 1. roles/bigquery.jobUser 2. roles/storage.objectUser  
+#### ● Run "docker compose up" at the root directory.  
 Notes: 
 1. Once Docker Compose has run successfully, you will see the containers in Docker Desktop.
 2. No need to run docker compose up every time you make changes to the code. Just restart the relevant service container.
