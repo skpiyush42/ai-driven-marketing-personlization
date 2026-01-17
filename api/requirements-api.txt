@@ -1,7 +1,8 @@
 fastapi
 uvicorn[standard]
 neo4j
-pymilvus
+pymilvus==2.6.6
+pymilvus[milvus_lite]
 numpy
 google-cloud-bigquery==3.40.0
 pydantic
