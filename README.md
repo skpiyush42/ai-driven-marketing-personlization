@@ -1,4 +1,4 @@
-owow-talents-ai-mp
+ai-driven-marketing-personlization
 ===============
 
 A Python-based ETL pipeline and Fast API service with multi-db setup
