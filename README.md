@@ -53,3 +53,12 @@ Notes:
 1. Once Docker Compose has run successfully, you will see the containers in Docker Desktop.
 2. No need to run docker compose up every time you make changes to the code. Just restart the relevant service container.
 
+## 📷 Screenshots from api
+1. Retrieve the top 5 most similar users (via Milvus vector search).  
+<img width="1440" height="897" alt="fast_api_milvus_ss" src="https://github.com/user-attachments/assets/008fdfbe-9c47-4a2f-bc4e-dda5cdca689d" />  
+
+2. Fetch campaigns connected to those users (via Neo4j).   
+<img width="1441" height="888" alt="fastapi_neo4j" src="https://github.com/user-attachments/assets/ada3485a-800b-4d26-af5d-a864fd1c4a87" />  
+
+3. Return results ranked by engagement frequency (from analytics DB).  
+<img width="1443" height="905" alt="fastap_bigquery" src="https://github.com/user-attachments/assets/976750e6-c1e6-4726-b5a1-9f886466afd2" />  
