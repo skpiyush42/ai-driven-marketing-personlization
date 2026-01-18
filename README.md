@@ -4,7 +4,7 @@ ai-driven-marketing-personlization
 A Python-based ETL pipeline and Fast API service with multi-db setup
 ---------------
 
-This repo contains code for the take-home assignment for the role of GCP data engineer at OWOW talents.
+This repo contains code for the ETL pipeline and API's for the data platform for marketing personalization
 
 ## 📂 Project Structure
 ├── src/   
